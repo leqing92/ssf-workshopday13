@@ -41,7 +41,7 @@ public class TodoController {
         mav.addObject("toDoList", toDoList);
 
         if(bindings.hasErrors()){
-            mav.addObject("ToDo", todo1); //<<<<<<< if toDo then cannot
+            mav.addObject("ToDo", todo1); //<<<<<<< if toDo then can work
             System.out.println(bindings.getFieldError());
             //cannot redirect here as it activate the getIndex(GetMapping) and get a new Todo that overwrite the original wrong form
             //mav.setViewName("redirect:/");
