@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<link rel="stylesheet" href="/styles.css">
+	</head>
+	<body>
+		<form method="POST" action="/todo" data-th-object="${ToDo}"> <!-- if data-th-object="${ToDo}" then cannot-->
+			<table>
+				<tr>
+					<td>Task: </td>
+					<td>
+						<input type="text" size="30" data-th-field="*{task}">
+						<span data-th-if="${#fields.hasErrors('task')}"
+								data-th-errors="*{task}"
+								data-th-errorclass="error">
+						</span>					
+					</td>
+				</tr>
+				<tr>
+					<td>Priority: </td>
+					<td >
+						<select type ="number" name="priority" data-th-field="*{priority}">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>	
+						<span data-th-if="${#fields.hasErrors('priority')}"
+								data-th-errors="*{priority}"
+								data-th-errorclass="error">
+						</span>					
+					</td>
+				</tr>
+				<tr>
+					<td>Due Date:</td>
+					<td>
+						<input type="date" name="dueDate" data-th-field="*{dueDate}">
+						<span data-th-if="${#fields.hasErrors('dueDate')}"
+								data-th-errors="*{dueDate}"
+								data-th-errorclass="error">
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<button type="submit">Add</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+
+		<div data-th-if="${#lists.isEmpty(toDoList)}">
+			<h3>You have no task</h3>
+		</div>
+
+		<div data-th-unless="${#lists.isEmpty(toDoList)}">
+			<table border = 1>
+				<thead>
+					<tr>
+						<th>Task</th>
+						<th>Priority</th>
+						<th>Due Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each = "i : ${toDoList}">
+						<td data-th-text = "${i.task}"> </td>
+						<td data-th-text = "${i.priority}"> </td>
+						<td data-th-text = "${i.dueDate}"> </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
