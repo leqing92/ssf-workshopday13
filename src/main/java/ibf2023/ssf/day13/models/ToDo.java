@@ -1,6 +1,7 @@
 package ibf2023.ssf.day13.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,16 +14,17 @@ import jakarta.validation.constraints.Size;
 
 public class ToDo {
     
-    @NotEmpty (message = "Please enter a task")        
+    @NotEmpty (message = "Please enter a task") 
     private String task;    
    
     @Max (value = 4, message = "Value must < 5")
     private int priority;  // if int (primitive) then NotEmpty if Integer (object) then is NotNull
     
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @NotNull(message = "Must set a due date")
     @FutureOrPresent(message = "Due date must be in the future")
-    private LocalDate dueDate;
+    private LocalDateTime dueDate;
+    //private LocalDate dueDate; //to change the html input type also
 
     public String getTask() {
         return task;
@@ -38,10 +40,10 @@ public class ToDo {
         this.priority = priority;
     }
 
-    public LocalDate getDueDate() {
+    public LocalDateTime getDueDate() {
         return dueDate;
     }
-    public void setDueDate(LocalDate dueDate) {
+    public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
     }
 

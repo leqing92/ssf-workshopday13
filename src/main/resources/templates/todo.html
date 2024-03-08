@@ -7,15 +7,16 @@
 		<link rel="stylesheet" href="/styles.css">
 	</head>
 	<body>
-		<form method="POST" action="/todo" data-th-object="${ToDo}"> <!-- if data-th-object="${ToDo}" then cannot-->
+		<form method="POST" action="/todo" data-th-object="${toDo}"> <!-- if data-th-object="${ToDo}" then cannot-->
 			<table>
 				<tr>
 					<td>Task: </td>
 					<td>
 						<input type="text" size="30" data-th-field="*{task}">
-						<span data-th-if="${#fields.hasErrors('task')}"
-								data-th-errors="*{task}"
-								data-th-errorclass="error">
+						<!-- the .error in css format cannot work for this, need to provied class = "error"-->
+						<span class ="err" data-th-if = "${#fields.hasErrors('task')}" 
+						data-th-each = "err : ${#fields.errors('task')}"
+						data-th-text = "${err}">
 						</span>					
 					</td>
 				</tr>
@@ -28,7 +29,8 @@
 							<option value="3">3</option>
 							<option value="4">4</option>
 							<option value="5">5</option>
-						</select>	
+						</select>
+						<!-- the .err in css format work for this -->	
 						<span data-th-if="${#fields.hasErrors('priority')}"
 								data-th-errors="*{priority}"
 								data-th-errorclass="error">
@@ -38,7 +40,8 @@
 				<tr>
 					<td>Due Date:</td>
 					<td>
-						<input type="date" name="dueDate" data-th-field="*{dueDate}">
+						<!--<input type="date" name="dueDate" data-th-field="*{dueDate}"> -->
+						<input type="datetime-local" name="dueDate" data-th-field="*{dueDate}">
 						<span data-th-if="${#fields.hasErrors('dueDate')}"
 								data-th-errors="*{dueDate}"
 								data-th-errorclass="error">

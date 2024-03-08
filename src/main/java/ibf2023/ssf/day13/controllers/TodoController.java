@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,7 +24,7 @@ public class TodoController {
         ModelAndView mav = new ModelAndView("todo"); //refer to todo.html
         List<ToDo> toDoList = getList(sess);
 
-        mav.addObject("ToDo", new ToDo()); //<<<<<<<  if toDo then can work
+        mav.addObject("toDo", new ToDo()); //<<<<<<<  if toDo then can work
         mav.addObject("toDoList", toDoList);
 
         return mav;
@@ -33,7 +32,7 @@ public class TodoController {
 
     @PostMapping (path = "/todo")
     public ModelAndView postToDo (HttpSession sess,
-                                @RequestBody @ModelAttribute @Valid ToDo todo1,
+                                @ModelAttribute @Valid ToDo todo1,
                                 BindingResult bindings){
         
         ModelAndView mav = new ModelAndView("todo"); //refer to /templates/todo.html
@@ -41,7 +40,7 @@ public class TodoController {
         mav.addObject("toDoList", toDoList);
 
         if(bindings.hasErrors()){
-            mav.addObject("ToDo", todo1); //<<<<<<< if toDo then can work
+            mav.addObject("toDo", todo1); //<<<<<<< if toDo then can work
             System.out.println(bindings.getFieldError());
             //cannot redirect here as it activate the getIndex(GetMapping) and get a new Todo that overwrite the original wrong form
             //mav.setViewName("redirect:/");
